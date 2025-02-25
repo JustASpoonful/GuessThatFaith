@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guess That Faith!</title>
+  <style>
+    /* Basic resets and background styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle, #222, #000);
+      font-family: Arial, sans-serif;
+      height: 100%;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Center the image and apply zoom transform */
+    #image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(50);
+      transform-origin: center center;
+    }
+    /* Instructions at the top */
+    #instructions {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 1.2em;
+      z-index: 10;
+      text-shadow: 2px 2px 4px #000;
+    }
+    /* Answer display styling */
+    #answer {
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      text-align: center;
+      color: #ff0;
+      font-size: 1.8em;
+      z-index: 10;
+      text-shadow: 2px 2px 4px #000;
+    }
+    /* Additional control buttons */
+    #controls {
+      position: absolute;
+      top: 80px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+    #controls button {
+      font-size: 1em;
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* Scoreboard styling at the bottom */
+    #scoreboard {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      color: #fff;
+      font-size: 1.5em;
+      z-index: 10;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .score {
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+    .score button {
+      margin-left: 10px;
+      font-size: 1em;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Basic resets and background styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(circle, #114411, #000); /* Dark green casino-style background */
+  font-family: "Play", sans-serif;
+  height: 100%;
+}
+
+/* Container styling */
+#container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  border: 10px solid gold; /* Gold border for a luxurious casino feel */
+  box-shadow: 0 0 20px gold;
+  background: radial-gradient(circle, #115511, #000);
+}
+
+/* Center the image and apply zoom transform */
+#image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(50);
+  transform-origin: center center;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Instructions at the top */
+#instructions {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  color: gold;
+  font-size: 1.4em;
+  z-index: 10;
+  text-shadow: 3px 3px 5px black;
+  font-weight: bold;
+}
+
+/* Answer display styling */
+#answer {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  text-align: center;
+  color: #ffcc00; /* Golden yellow for casino-style text */
+  font-size: 2em;
+  z-index: 10;
+  text-shadow: 3px 3px 6px black;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Control buttons styling */
+#controls {
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+#controls button {
+  font-size: 1.2em;
+  margin: 0 10px;
+  padding: 12px 25px;
+  border: 3px solid gold;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #228822, #114411);
+  color: gold;
+  text-shadow: 2px 2px 3px black;
+  transition: 0.3s;
+}
+
+#controls button:hover {
+  background: linear-gradient(180deg, #33aa33, #228822);
+  box-shadow: 0 0 10px gold;
+}
+
+/* Scoreboard styling at the bottom */
+#scoreboard {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  color: gold;
+  font-size: 1.5em;
+  z-index: 10;
+  text-shadow: 3px 3px 5px black;
+}
+
+.score {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: 3px solid gold;
+  box-shadow: 0 0 15px gold;
+}
+
+.score button {
+  margin-left: 10px;
+  font-size: 1.2em;
+  padding: 8px 15px;
+  border: 3px solid gold;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #ffcc00, #aa8800);
+  color: black;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px gold;
+  transition: 0.3s;
+}
+
+.score button:hover {
+  background: linear-gradient(180deg, #ffdd44, #ffcc00);
+  box-shadow: 0 0 10px gold;
+}
+
+  </style>
+</head>
+<body>
+  <div id="container">
+    <!-- Top instructions -->
+    <div id="instructions">
+      Press and hold <strong>W</strong> to speed up zoom out, hold <strong>S</strong> to zoom in.
+    </div>
+    <!-- Answer display area -->
+    <div id="answer"></div>
+    <!-- Buttons for Next Image and Reset Zoom -->
+    <div id="controls">
+      <button id="nextImage">Next Image</button>
+      <button id="resetZoom">Reset Zoom</button>
+    </div>
+    <!-- Image container -->
+    <img id="image" src="" alt="Mystery Image" />
+    <!-- Scoreboard for two teams -->
+    <div id="scoreboard">
+      <div class="score">
+        Team 1 Score: <span id="team1Score">0</span>
+        <button id="team1Add">+</button>
+      </div>
+      <div class="score">
+        Team 2 Score: <span id="team2Score">0</span>
+        <button id="team2Add">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Image List and Answers ---
+    const images = [
+      "https://upload.wikimedia.org/wikipedia/commons/0/0d/Rio_de_Janeiro_-_Cristo_Redentor_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/1/17/Bodh_Gaya_-_Buddha_Statue_-_Front_View_%289224970905%29.jpg"
+    ];
+    const imageAnswers = [
+      "Christ the Redeemer",
+      "Great Budha (Bodh Gaya)"
+    ];
+    let currentImageIndex = 0;
+    const imageElement = document.getElementById("image");
+    const answerElement = document.getElementById("answer");
+
+    // Load the initial image and reset zoom and answer
+    function updateImage() {
+      imageElement.src = images[currentImageIndex];
+      resetZoom();
+      hideAnswer();
+    }
+
+    // --- Score Variables ---
+    let team1Score = 0;
+    let team2Score = 0;
+
+    function updateScoreboard() {
+      document.getElementById("team1Score").textContent = team1Score;
+      document.getElementById("team2Score").textContent = team2Score;
+    }
+
+    // --- Zoom Configuration ---
+    const initialScale = 30; // Starting zoom (extremely zoomed in)
+    const finalScale = 0.10;    // Fully zoomed out
+    const duration = 60000;  // 60 seconds for a full zoom-out at normal speed
+    const fastMultiplier = 3; // Speed multiplier when W is held down
+    const normalZoomOutSpeed = (initialScale - finalScale) / duration; // Scale change per ms
+    const zoomInSpeed = normalZoomOutSpeed; // Scale increase per ms when S is held down
+
+    // --- Zoom State ---
+    let currentScale = initialScale;
+    let isWPressed = false;
+    let isSPressed = false;
+    let isAnswerRevealed = false;
+
+    // --- Event Listeners for Zoom Controls and Answer Reveal (W, S, Space) ---
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "w") {
+        isWPressed = true;
+      }
+      if (e.key.toLowerCase() === "s") {
+        isSPressed = true;
+      }
+      if (e.code === "Space") {
+        e.preventDefault(); // Prevent default behavior that might change focus or trigger buttons.
+        if (!isAnswerRevealed) {
+          revealAnswer();
+        }
+      }
+    });
+
+    document.addEventListener("keyup", (e) => {
+      if (e.key.toLowerCase() === "w") {
+        isWPressed = false;
+      }
+      if (e.key.toLowerCase() === "s") {
+        isSPressed = false;
+      }
+    });
+
+    // --- Animation Loop for Zoom ---
+    let lastTime = performance.now();
+    function animate(time) {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (isSPressed) {
+        // Zoom in (increase scale) up to the initial value
+        currentScale = Math.min(currentScale + zoomInSpeed * delta, initialScale);
+      } else {
+        // Zoom out (decrease scale) down to the final value
+        const multiplier = isWPressed ? fastMultiplier : 1;
+        currentScale = Math.max(currentScale - normalZoomOutSpeed * multiplier * delta, finalScale);
+      }
+
+      imageElement.style.transform = `translate(-50%, -50%) scale(${currentScale})`;
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // Reset zoom for the current image
+    function resetZoom() {
+      currentScale = initialScale;
+    }
+
+    // Reveal answer for the current image
+    function revealAnswer() {
+      answerElement.textContent = imageAnswers[currentImageIndex];
+      isAnswerRevealed = true;
+    }
+
+    // Hide the answer
+    function hideAnswer() {
+      answerElement.textContent = "";
+      isAnswerRevealed = false;
+    }
+
+    // --- Button Event Listeners ---
+    // Cycle to the next image and reset the zoom and answer
+    document.getElementById("nextImage").addEventListener("click", () => {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      updateImage();
+    });
+
+    // Manually reset the zoom and hide the answer if needed
+    document.getElementById("resetZoom").addEventListener("click", () => {
+      resetZoom();
+      hideAnswer();
+    });
+
+    // Increment Team 1's score
+    document.getElementById("team1Add").addEventListener("click", () => {
+      team1Score++;
+      updateScoreboard();
+    });
+
+    // Increment Team 2's score
+    document.getElementById("team2Add").addEventListener("click", () => {
+      team2Score++;
+      updateScoreboard();
+    });
+
+    // Initialize the first image and scoreboard
+    updateImage();
+    updateScoreboard();
+  </script>
+</body>
+</html>
