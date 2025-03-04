@@ -4,31 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Guess That Faith!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Basic resets and background styling */
+    /* Reset and basic styling */
     body, html {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: radial-gradient(circle, #222, #000);
-      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      font-family: 'Montserrat', sans-serif;
       height: 100%;
     }
+    /* Main container with modern gradient background */
     #container {
       width: 100vw;
       height: 100vh;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
     }
-    /* Center the image and apply zoom transform */
-    #image {
+    /* Music toggle button */
+    #musicToggle {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(50);
-      transform-origin: center center;
+      top: 20px;
+      right: 20px;
+      z-index: 20;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    /* Instructions at the top */
+    #musicToggle:hover {
+      background: rgba(0,0,0,0.7);
+    }
+    /* Header instructions styling */
     #instructions {
       position: absolute;
       top: 20px;
@@ -37,23 +50,24 @@
       color: #fff;
       font-size: 1.2em;
       z-index: 10;
-      text-shadow: 2px 2px 4px #000;
+      text-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
     /* Answer display styling */
     #answer {
       position: absolute;
-      top: 50px;
+      top: 60px;
       width: 100%;
       text-align: center;
-      color: #ff0;
-      font-size: 1.8em;
+      color: #ffeb3b;
+      font-size: 2em;
       z-index: 10;
-      text-shadow: 2px 2px 4px #000;
+      text-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      font-style: italic;
     }
-    /* Additional control buttons */
+    /* Control buttons styling */
     #controls {
       position: absolute;
-      top: 80px;
+      top: 100px;
       width: 100%;
       text-align: center;
       z-index: 10;
@@ -61,183 +75,83 @@
     #controls button {
       font-size: 1em;
       margin: 0 10px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 30px;
       cursor: pointer;
+      background: linear-gradient(45deg, #ff6b6b, #f06595);
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    /* Scoreboard styling at the bottom */
+    #controls button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    /* Scoreboard styling */
     #scoreboard {
       position: absolute;
       bottom: 20px;
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 50px;
+      gap: 30px;
       color: #fff;
-      font-size: 1.5em;
+      font-size: 1.2em;
       z-index: 10;
-      text-shadow: 2px 2px 4px #000;
     }
     .score {
-      background: rgba(0,0,0,0.5);
+      background: rgba(255, 255, 255, 0.1);
       padding: 10px 20px;
-      border-radius: 10px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
     }
     .score button {
       margin-left: 10px;
       font-size: 1em;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 20px;
       cursor: pointer;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: #fff;
+      transition: background 0.3s, transform 0.2s;
     }
-    
-    /* Basic resets and background styling */
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: radial-gradient(circle, #114411, #000); /* Dark green casino-style background */
-  font-family: "Play", sans-serif;
-  height: 100%;
-}
-
-/* Container styling */
-#container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  border: 10px solid gold; /* Gold border for a luxurious casino feel */
-  box-shadow: 0 0 20px gold;
-  background: radial-gradient(circle, #115511, #000);
-}
-
-/* Center the image and apply zoom transform */
-#image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(50);
-  transform-origin: center center;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-}
-
-/* Instructions at the top */
-#instructions {
-  position: absolute;
-  top: 20px;
-  width: 100%;
-  text-align: center;
-  color: gold;
-  font-size: 1.4em;
-  z-index: 10;
-  text-shadow: 3px 3px 5px black;
-  font-weight: bold;
-}
-
-/* Answer display styling */
-#answer {
-  position: absolute;
-  top: 50px;
-  width: 100%;
-  text-align: center;
-  color: #ffcc00; /* Golden yellow for casino-style text */
-  font-size: 2em;
-  z-index: 10;
-  text-shadow: 3px 3px 6px black;
-  font-weight: bold;
-  font-style: italic;
-}
-
-/* Control buttons styling */
-#controls {
-  position: absolute;
-  top: 80px;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
-}
-
-#controls button {
-  font-size: 1.2em;
-  margin: 0 10px;
-  padding: 12px 25px;
-  border: 3px solid gold;
-  border-radius: 10px;
-  cursor: pointer;
-  background: linear-gradient(180deg, #228822, #114411);
-  color: gold;
-  text-shadow: 2px 2px 3px black;
-  transition: 0.3s;
-}
-
-#controls button:hover {
-  background: linear-gradient(180deg, #33aa33, #228822);
-  box-shadow: 0 0 10px gold;
-}
-
-/* Scoreboard styling at the bottom */
-#scoreboard {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  color: gold;
-  font-size: 1.5em;
-  z-index: 10;
-  text-shadow: 3px 3px 5px black;
-}
-
-.score {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 15px 30px;
-  border-radius: 15px;
-  border: 3px solid gold;
-  box-shadow: 0 0 15px gold;
-}
-
-.score button {
-  margin-left: 10px;
-  font-size: 1.2em;
-  padding: 8px 15px;
-  border: 3px solid gold;
-  border-radius: 8px;
-  cursor: pointer;
-  background: linear-gradient(180deg, #ffcc00, #aa8800);
-  color: black;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px gold;
-  transition: 0.3s;
-}
-
-.score button:hover {
-  background: linear-gradient(180deg, #ffdd44, #ffcc00);
-  box-shadow: 0 0 10px gold;
-}
-
+    .score button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+    }
+    /* Image styling */
+    #image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(50);
+      transform-origin: center center;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      transition: border 0.3s;
+    }
+    #image:hover {
+      border: 4px solid rgba(255, 235, 59, 0.7);
+    }
   </style>
 </head>
 <body>
   <div id="container">
-    <!-- Top instructions -->
+    <button id="musicToggle">Mute Music</button>
     <div id="instructions">
       Press and hold <strong>W</strong> to speed up zoom out, hold <strong>S</strong> to zoom in.
     </div>
-    <!-- Answer display area -->
     <div id="answer"></div>
-    <!-- Buttons for Next Image and Reset Zoom -->
     <div id="controls">
       <button id="nextImage">Next Image</button>
       <button id="resetZoom">Reset Zoom</button>
     </div>
-    <!-- Image container -->
     <img id="image" src="" alt="Mystery Image" />
-    <!-- Scoreboard for two teams -->
     <div id="scoreboard">
       <div class="score">
         Team 1 Score: <span id="team1Score">0</span>
@@ -248,6 +162,16 @@ body, html {
         <button id="team2Add">+</button>
       </div>
     </div>
+    <!-- Intro music element (plays once on load) -->
+    <audio id="introMusic" autoplay>
+      <source src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <!-- Background music element (starts after intro ends) -->
+    <audio id="backgroundMusic" loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-summer.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
 
   <script>
@@ -257,14 +181,16 @@ body, html {
       "https://upload.wikimedia.org/wikipedia/commons/1/17/Bodh_Gaya_-_Buddha_Statue_-_Front_View_%289224970905%29.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDh6-5kJ2e6GX239nxfAi1rm6fTSGMRBMHufixCVNY95Iw-1napP9jFG4wqHdvpJszEF_zLvNR-YUj7VN1Y5iYAw",
       "https://www.vmcdn.ca/f/files/via/images/people/ryan-reynolds-petition.png;w=1000;h=751;mode=crop",
-      "https://media.swncdn.com/via/images/2023/08/11/32042/32042-seraphim_source_file.jpg"
+      "https://media.swncdn.com/via/images/2023/08/11/32042/32042-seraphim_source_file.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtGEY5jAwCMEnoe8sMvi4s1u6Bqv8fUN22SA&s"
     ];
     const imageAnswers = [
       "Christ the Redeemer",
       "Great Budha (Bodh Gaya)",
-      "The Rock or Dwayne the Rock Johnson",
+      "The Rock or Dwayne the Rock Johnson the christian",
       "Ryan Reynolds the catholic.",
-      "Bibically Accurate Angel"
+      "Biblically Accurate Angel",
+      "Kaaba"
     ];
     let currentImageIndex = 0;
     const imageElement = document.getElementById("image");
@@ -289,7 +215,7 @@ body, html {
     // --- Zoom Configuration ---
     const initialScale = 35; // Starting zoom (extremely zoomed in)
     const finalScale = 0.30;    // Fully zoomed out
-    const duration = 60000;  // 60 seconds for a full zoom-out at normal speed
+    const duration = 30000;  // 30 seconds for a full zoom-out at normal speed
     const fastMultiplier = 3; // Speed multiplier when W is held down
     const normalZoomOutSpeed = (initialScale - finalScale) / duration; // Scale change per ms
     const zoomInSpeed = normalZoomOutSpeed; // Scale increase per ms when S is held down
@@ -309,7 +235,7 @@ body, html {
         isSPressed = true;
       }
       if (e.code === "Space") {
-        e.preventDefault(); // Prevent default behavior that might change focus or trigger buttons.
+        e.preventDefault();
         if (!isAnswerRevealed) {
           revealAnswer();
         }
@@ -332,10 +258,10 @@ body, html {
       lastTime = time;
 
       if (isSPressed) {
-        // Zoom in (increase scale) up to the initial value
+        // Zoom in
         currentScale = Math.min(currentScale + zoomInSpeed * delta, initialScale);
       } else {
-        // Zoom out (decrease scale) down to the final value
+        // Zoom out
         const multiplier = isWPressed ? fastMultiplier : 1;
         currentScale = Math.max(currentScale - normalZoomOutSpeed * multiplier * delta, finalScale);
       }
@@ -363,28 +289,43 @@ body, html {
     }
 
     // --- Button Event Listeners ---
-    // Cycle to the next image and reset the zoom and answer
     document.getElementById("nextImage").addEventListener("click", () => {
       currentImageIndex = (currentImageIndex + 1) % images.length;
       updateImage();
     });
 
-    // Manually reset the zoom and hide the answer if needed
     document.getElementById("resetZoom").addEventListener("click", () => {
       resetZoom();
       hideAnswer();
     });
 
-    // Increment Team 1's score
     document.getElementById("team1Add").addEventListener("click", () => {
       team1Score++;
       updateScoreboard();
     });
 
-    // Increment Team 2's score
     document.getElementById("team2Add").addEventListener("click", () => {
       team2Score++;
       updateScoreboard();
+    });
+
+    // --- Audio Elements & Controls ---
+    const musicToggle = document.getElementById("musicToggle");
+    const introMusic = document.getElementById("introMusic");
+    const backgroundMusic = document.getElementById("backgroundMusic");
+    let isMuted = false;
+
+    // When intro music ends, start background music
+    introMusic.addEventListener("ended", () => {
+      backgroundMusic.play();
+    });
+
+    // Mute/unmute both intro and background music
+    musicToggle.addEventListener("click", () => {
+      isMuted = !isMuted;
+      introMusic.muted = isMuted;
+      backgroundMusic.muted = isMuted;
+      musicToggle.textContent = isMuted ? "Unmute Music" : "Mute Music";
     });
 
     // Initialize the first image and scoreboard
